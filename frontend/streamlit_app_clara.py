@@ -1026,7 +1026,7 @@ def acknowledgements_page():
     st.subheader("Team 15 — Cinemaniacs")
     st.write(
         """
-        - Angela Cottone  
+        - Angelina Cottone  
         - Nidhi Deshmukh  
         - Dylan Sidhu  
         - Matthew Ward  
