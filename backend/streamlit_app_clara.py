@@ -427,114 +427,137 @@ def create_success_over_time(db):
 # =============================================================================
 
 def home_page(db):
-    # HERO SECTION
+
+    # ===============================
+    # HERO HEADER (Large, Professional)
+    # ===============================
+
     st.markdown(
         """
-        <div style="
-            padding: 1.5rem 1.5rem;
-            border-radius: 12px;
-            background: radial-gradient(circle at top left, #1f2933, #020617);
-            color: #f9fafb;
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            margin-bottom: 1.5rem;
-        ">
-            <h1 style="margin-bottom: 0.5rem;">Filmlytics</h1>
-            <h3 style="margin-top: 0; font-weight: 400;">
-                Predicting Rotten Tomatoes Audience Scores Using Graph-Based Modeling
-            </h3>
+        <style>
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-top: 0.2em;
+            margin-bottom: 0.1em;
+            color: #111827;
+        }
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 400;
+            text-align: center;
+            color: #4b5563;
+            margin-bottom: 1.5em;
+        }
+        .section-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 1.4em;
+            color: #1f2937;
+        }
+        .content-text {
+            font-size: 1.05rem;
+            line-height: 1.55;
+            color: #374151;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        "<div class='hero-title'>Predicting Movie Audience Scores Using Graph-Based Modeling</div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        "<div class='hero-subtitle'>Filmytics — A Graph-Driven, Multi-Model Framework for Movie Audience Prediction</div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown("---")
+
+    # ===============================
+    # INTRO SECTION
+    # ===============================
+
+    st.markdown("<div class='section-header'>What this project is and why it matters</div>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class='content-text'>
+        Filmytics predicts audience scores for movies <b>before release</b>.  
+        Studios rely on early audience insights to guide marketing strategy, streaming placement,
+        and financial forecasting. For fans and researchers, these predictions uncover what types
+        of films resonate and how factors such as <b>representation</b> influence audience reception.
+        <br><br>
+        Our system combines large public datasets, builds rich feature representations,
+        and uses advanced graph-based modeling to understand how films relate to each other.
+        The result is a robust ensemble prediction framework for new and upcoming movies.
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    # ABSTRACT
-    st.subheader("Abstract")
-    st.write(
+    # ===============================
+    # APPROACH SECTION
+    # ===============================
+
+    st.markdown("<div class='section-header'>Our Approach</div>", unsafe_allow_html=True)
+    st.markdown(
         """
-        This project builds a graphical model predicting the audience score of upcoming films and 
-        visualizes relationships among previously released films. Using data from TMDB, Rotten Tomatoes, 
-        and YouTube API, we constructed a dataset of 66,000+ films spanning 2010–2025, containing key film 
-        attributes such as cast, genres, release information, viewer engagement metrics, and trailer 
-        sentiment. Additionally, we incorporated diversity indicators like female cast percentages to 
-        uncover patterns between gender representation and film success. 
-        
-        After cleaning and merging these data sources, we applied graphical modeling techniques 
-        (Graph Neural Networks and XGBoost baselines) to capture dependencies among film features and 
-        trained a prediction model to estimate audience scores. Our results show meaningful relationships 
-        between attributes such as genre clusters and the influence of cast popularity, and demonstrate 
-        moderate predictive accuracy for new film scores. The Streamlit interface enables users to 
-        interactively explore these relationships while recommending films based on likes and dislikes.
-        """
+        <div class='content-text'>
+        We collect data from three major public sources:
+        <ul>
+            <li><b>TMDB</b> — metadata such as cast, genres, runtime, budget, popularity</li>
+            <li><b>Rotten Tomatoes</b> — critic & audience scores and review excerpts</li>
+            <li><b>YouTube</b> — trailer views, likes, comments, and recency metrics</li>
+        </ul>
+
+        After cleaning and joining these sources, we build a unified dataset of
+        <b>~66,000 films (2010–2025)</b> and engineer over <b>150 features</b>
+        covering metadata, engagement metrics, sentiment, and representation indicators.
+        <br><br>
+        We then train three complementary models:
+        <ul>
+            <li><b>GNN</b> — captures similarity across films via shared attributes</li>
+            <li><b>KGCN</b> — learns semantic relationships in the film knowledge graph</li>
+            <li><b>XGBoost</b> — strong feature-based baseline using engineered predictors</li>
+        </ul>
+
+        Finally, a <b>stacking meta-learner</b> integrates these components into a single
+        high-accuracy audience score predictor.
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-    st.markdown("---")
-
-    # INTRO & MOTIVATION
-    st.subheader("Introduction & Motivation")
-    st.write(
-        """
-        The film industry faces mounting pressure to predict audience reception while also addressing 
-        debates about representation and diversity. Audience scores directly influence marketing strategies, 
-        streaming decisions, and long-term commercial success. Being able to predict these scores before 
-        release could offer studios and creators valuable insights into audience expectations and potential 
-        film performance. 
-
-        Systematic analysis of films beyond the basics of budget, runtime, etc. has been limited by data 
-        fragmentation as film metadata, engagement metrics, and diversity information exist across disparate 
-        platforms. Additionally, gender and demographic information are not systematically tracked in standard 
-        film databases, and simple regression and black-box models don’t offer in-depth predictions for 
-        analyzing complex relationships. 
-        
-        By integrating multiple data sources, enriching them with gender representation features, and 
-        building a structured graphical model, we can explore how different film attributes interact and 
-        contribute to audience responses.
-        """
+    st.info(
+        "Workflow: TMDB + RottenTomatoes + YouTube → Clean/Merge → Feature Engineering → {GNN, KGCN, XGBoost} → Stacking Meta-Learner → Audience Score Prediction"
     )
 
-    st.markdown("---")
+    # ===============================
+    # RESULTS SECTION
+    # ===============================
 
-    # OBJECTIVES
-    st.subheader("Objectives")
-    st.write(
+    st.markdown("<div class='section-header'>Main Findings and Results</div>", unsafe_allow_html=True)
+    st.markdown(
         """
-        - Construct a comprehensive dataset integrating multiple APIs for films containing features 
-          relevant to audience score prediction and webscraping critic and audience scores.  
-        - Build a complex knowledge-based graphical model showing dependencies among film attributes 
-          and audience scores.  
-        - Use the graphical model to predict scores for upcoming films based on gathered metrics of 
-          previously scored films.  
-        - Interpret the structure of the learned model to understand relationships among released films 
-          and provide actionable insights.  
-        - Create an interactive dashboard that allows users to explore predictions and film relationships.  
-        """
+        <div class='content-text'>
+        <ul>
+            <li><b>XGBoost RMSE:</b> 0.110</li>
+            <li><b>KGCN RMSE:</b> 0.171</li>
+            <li><b>GNN RMSE:</b> 0.195</li>
+            <li><b>Stacking Ensemble RMSE:</b> 0.1085 (best overall)</li>
+            <li><b>80.2%</b> of predictions fall within ±10 percentage points</li>
+        </ul>
+        Combining graph-based and tabular models yields the strongest practical performance.
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-    st.markdown("---")
 
-    # NAVIGATION BUTTONS (clean + modern)
-    st.subheader("Explore the Filmlytics Dashboard")
-
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.button("🎬 Movie Search", use_container_width=True):
-            st.session_state["page"] = "Movie Search"
-    with col2:
-        if st.button("📊 Analytics Dashboard", use_container_width=True):
-            st.session_state["page"] = "Analytics Dashboard"
-    with col3:
-        if st.button("🧠 Modeling", use_container_width=True):
-            st.session_state["page"] = "Modeling"
-
-    col4, col5, col6 = st.columns(3)
-    with col4:
-        if st.button("🔍 Compare Movies", use_container_width=True):
-            st.session_state["page"] = "Compare Movies"
-    with col5:
-        if st.button("🕸 Visual Graph Explorer", use_container_width=True):
-            st.session_state["page"] = "Visual Graph Explorer"
-    with col6:
-        if st.button("👥 Acknowledgements", use_container_width=True):
-            st.session_state["page"] = "Acknowledgements"
 
 
 
