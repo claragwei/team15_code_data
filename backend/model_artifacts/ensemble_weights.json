@@ -1,0 +1,10 @@
+{
+  "method": "stacking",
+  "meta_model": "Gradient Boosting",
+  "stacking_rmse": 0.1085031051530081,
+  "grid_search_weights": {
+    "gnn": 0.05,
+    "kgcn": 0.05,
+    "xgb": 0.8999999999999999
+  }
+}
